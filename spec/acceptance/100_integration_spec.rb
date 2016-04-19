@@ -1,8 +1,8 @@
-# describe 'Atlassian Bamboo with Embedded Database' do
-#   include_examples 'a buildable Docker image', '.', env: ["CATALINA_OPTS=-Xms1024m -Xmx1024m -XX:+UseG1GC -Datlassian.plugins.enable.wait=#{Docker::DSL.timeout}"]
-#
-#   include_examples 'an acceptable Atlassian Bamboo instance', 'using an embedded database'
-# end
+describe 'Atlassian Bamboo with Embedded Database' do
+  include_examples 'a buildable Docker image', '.', env: ["CATALINA_OPTS=-Xms1024m -Xmx1024m -XX:+UseG1GC -Datlassian.plugins.enable.wait=#{Docker::DSL.timeout}"]
+
+  include_examples 'an acceptable Atlassian Bamboo instance', 'using an embedded database'
+end
 
 describe 'Atlassian Bamboo with PostgreSQL 9.3 Database' do
   include_examples 'a buildable Docker image', '.', env: ["CATALINA_OPTS=-Xms1024m -Xmx1024m -XX:+UseG1GC -Datlassian.plugins.enable.wait=#{Docker::DSL.timeout}"]
@@ -69,7 +69,7 @@ describe 'Atlassian Bamboo behind reverse proxy' do
       "X_PROXY_NAME=#{Docker.info['Name']}",
       'X_PROXY_PORT=1234',
       'X_PROXY_SCHEME=http',
-      'X_PATH=/bitbucket-path'
+      'X_PATH=/bamboo-path'
     ]
 
   include_examples 'an acceptable Atlassian Bamboo instance', 'using an embedded database' do
@@ -80,7 +80,7 @@ describe 'Atlassian Bamboo behind reverse proxy' do
         portBindings: { '80/tcp' => [{ 'HostPort' => '1234' }] },
         links: ["#{@container.id}:container"]
       @container_proxy.start!
-      @container_proxy.setup_capybara_url({ tcp: 80 }, '/bitbucket-path')
+      @container_proxy.setup_capybara_url({ tcp: 80 }, '/bamboo-path')
     end
     after :all do
       if ENV['CIRCLECI']

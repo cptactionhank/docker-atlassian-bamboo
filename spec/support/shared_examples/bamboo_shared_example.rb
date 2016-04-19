@@ -88,7 +88,7 @@ shared_examples 'an acceptable Atlassian Bamboo instance' do |database_examples|
     end
   end
 
-  describe 'Stopping the Bitbucket instance' do
+  describe 'Stopping the Atlassian Bamboo instance' do
     before(:all) { @container.kill_and_wait signal: 'SIGTERM' }
 
     subject { @container }

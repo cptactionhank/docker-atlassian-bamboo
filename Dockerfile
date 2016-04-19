@@ -5,7 +5,7 @@ ENV BAMBOO_HOME     /var/atlassian/bamboo
 ENV BAMBOO_INSTALL  /opt/atlassian/bamboo
 ENV BAMBOO_VERSION  5.10.3
 
-# Install Atlassian Bitbucket and helper tools and setup initial home
+# Install Atlassian Bamboo and helper tools and setup initial home
 # directory structure.
 RUN set -x \
     && apt-get update --quiet \
@@ -46,11 +46,11 @@ EXPOSE 8085 54663
 # directory due to eg. logs.
 VOLUME ["/var/atlassian/bamboo","/opt/atlassian/bamboo/logs"]
 
-# Set the default working directory as the Bitbucket home directory.
+# Set the default working directory as the Bamboo home directory.
 WORKDIR /var/atlassian/bamboo
 
 COPY "docker-entrypoint.sh" "/"
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
-# Run Atlassian Bitbucket as a foreground process by default.
+# Run Atlassian Bamboo as a foreground process by default.
 CMD ["/opt/atlassian/bamboo/bin/catalina.sh", "run"]
