@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Prepare Git committer information
+git config user.email "maage@dotmaage.dk"
+git config user.name "Circle CI Automated Builder"
+
 # Obtain the currently latest version of Atlassian Bamboo version defined by the
 # Dockerfile in this repository.
 VERSION=$(sed -nr 's/ENV BAMBOO_VERSION[[:space:]]*(.+)/\1/p' Dockerfile)
@@ -46,6 +50,12 @@ else
 	echo "Creating new branch '${VERSION}'"
 
 	git checkout --orphan "${VERSION}"
+
+	# We do not want to include README.md in version branches since the latest
+	# built branch from the Docker Hub will use that README.md which could be
+	# misleading. Contributing is also taken out to ensure a single place for
+	# the most up-to-date information.
+	rm --recursive --force "README.md" "CONTRIBUTING.md"
 
 	# Perform initial commit with the current directory as is (ie. prepared for
 	# the new version branch).
