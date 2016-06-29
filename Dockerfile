@@ -53,4 +53,4 @@ COPY "docker-entrypoint.sh" "/"
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 # Run Atlassian Bamboo as a foreground process by default.
-CMD ["/opt/atlassian/bamboo/bin/catalina.sh", "run"]
+CMD ["/opt/atlassian/bamboo/bin/start-bamboo.sh", "-fg"]
