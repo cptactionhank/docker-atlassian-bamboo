@@ -17,10 +17,10 @@ If you want to help out, you can check out the contribution section further down
 
 To quickly get started running a Bamboo instance, use the following command:
 ```bash
-docker run --detach --publish 8080:8080 cptactionhank/atlassian-bamboo:latest
+docker run --detach --publish 8085:8085 cptactionhank/atlassian-bamboo:latest
 ```
 
-Then simply navigate your preferred browser to `http://[dockerhost]:7990` and finish the configuration.
+Then simply navigate your preferred browser to `http://[dockerhost]:8085` and finish the configuration.
 
 ## Contributions
 
