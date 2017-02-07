@@ -1,11 +1,11 @@
 describe 'Atlassian Bamboo with Embedded Database' do
-  include_examples 'a buildable Docker image', '.', env: ["CATALINA_OPTS=-Datlassian.plugins.enable.wait=#{Docker::DSL.timeout}"]
+  include_examples 'a buildable Docker image', '.', env: ["CATALINA_OPTS=-Xmx2048m -Datlassian.plugins.enable.wait=#{Docker::DSL.timeout}"]
 
   include_examples 'an acceptable Atlassian Bamboo instance', 'using an embedded database'
 end
 
 describe 'Atlassian Bamboo with PostgreSQL 9.3 Database' do
-  include_examples 'a buildable Docker image', '.', env: ["CATALINA_OPTS=-Datlassian.plugins.enable.wait=#{Docker::DSL.timeout}"]
+  include_examples 'a buildable Docker image', '.', env: ["CATALINA_OPTS=-Xmx2048m -Datlassian.plugins.enable.wait=#{Docker::DSL.timeout}"]
 
   include_examples 'an acceptable Atlassian Bamboo instance', 'using a PostgreSQL database' do
     before :all do
@@ -65,7 +65,7 @@ end
 describe 'Atlassian Bamboo behind reverse proxy' do
   include_examples 'a buildable Docker image', '.',
     env: [
-      "CATALINA_OPTS=-Datlassian.plugins.enable.wait=#{Docker::DSL.timeout}",
+      "CATALINA_OPTS=-Xmx2048m -Datlassian.plugins.enable.wait=#{Docker::DSL.timeout}",
       "X_PROXY_NAME=#{Docker.info['Name']}",
       'X_PROXY_PORT=1234',
       'X_PROXY_SCHEME=http',
