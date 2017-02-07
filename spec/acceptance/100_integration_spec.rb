@@ -34,7 +34,7 @@ describe 'Atlassian Bamboo with PostgreSQL 9.3 Database' do
 end
 
 describe 'Atlassian Bamboo with MySQL 5.6 Database' do
-  include_examples 'a buildable Docker image', '.', env: ["CATALINA_OPTS=-Datlassian.plugins.enable.wait=#{Docker::DSL.timeout}"]
+  include_examples 'a buildable Docker image', '.', env: ["CATALINA_OPTS=-Xmx2048m -Datlassian.plugins.enable.wait=#{Docker::DSL.timeout}"]
 
   include_examples 'an acceptable Atlassian Bamboo instance', 'using a MySQL database' do
     before :all do
