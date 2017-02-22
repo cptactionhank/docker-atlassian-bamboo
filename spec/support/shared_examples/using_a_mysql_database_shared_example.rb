@@ -18,7 +18,7 @@ shared_examples 'using a MySQL database' do
   describe 'setting up JDBC Configuration' do
     before :all do
       within 'form#performSetupDatabaseConnection' do
-        fill_in 'dbConfigInfo.databaseUrl', with: "jdbc:mysql://#{@container_db.host}/bamboodb??autoReconnect=true&sessionVariables=storage_engine%3DInnoDB&useUnicode=true&characterEncoding=utf8"
+        fill_in 'dbConfigInfo.databaseUrl', with: "jdbc:mysql://#{@container_db.host}/bamboodb?autoReconnect=true&useUnicode=true&characterEncoding=utf8"
         fill_in 'dbConfigInfo.userName', with: 'root'
         fill_in 'dbConfigInfo.password', with: 'mysecretpassword'
         find('input#performSetupDatabaseConnection_save').trigger('click')

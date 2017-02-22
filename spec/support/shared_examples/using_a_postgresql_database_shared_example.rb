@@ -19,6 +19,10 @@ shared_examples 'using a PostgreSQL database' do
     before :all do
       within 'form#performSetupDatabaseConnection' do
         fill_in 'dbConfigInfo.databaseUrl', with: "jdbc:postgresql://#{@container_db.host}:5432/bamboodb"
+        # puts current_url
+        # puts "jdbc:postgresql://#{@container_db.host}:5432/bamboodb"
+        # require 'pry'
+        # binding.pry
         fill_in 'dbConfigInfo.userName', with: 'postgres'
         fill_in 'dbConfigInfo.password', with: 'mysecretpassword'
         find('input#performSetupDatabaseConnection_save').trigger('click')
