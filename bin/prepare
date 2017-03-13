@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# Usage: bin/prepare [VERSION]
+#
+# Prepares the current directory according to the given Atlassian Bamboo
+# VERSION. If no VERSION information is specified the latest version is
+# retrieved from the Atlassian Bamboo download feed.
+
+if [[ "x${1}" == "x" && "$(git rev-parse --abbrev-ref HEAD)" != "master" ]]; then
+	echo "Not master branch and therefore nothing to prepare"
+	exit 0
+fi
+
+echo "Obtaining Altassian Bamboo version information..."
+
+# Obtain the currently latest version of Atlassian Bamboo version defined
+# by the Dockerfile in this repository.
+CURRENT_VERSION=$(sed -nr 's/ENV BAMBOO_VERSION[[:space:]]*(.+)/\1/p' Dockerfile)
+
+# Obtain the latest Atlassian Bamboo version by going to the JSON version
+# feed information to get a JSONP formatted response, strip the output to
+# retrieve the actual content and then get the version number from the first
+# entry.
+VERSION=${1:-"$(curl -Ls 'https://my.atlassian.com/download/feeds/current/bamboo.json' | sed 's/downloads(\(.*\))/\1/g' | jq -r '.[0].version')"}
+
+# Outputs the version information
+echo "Found versions:"
+echo "  Current: ${CURRENT_VERSION}"
+echo "  New:     ${VERSION}"
+echo ""
+
+echo "Preparing branch for version new Atlassian Bamboo version"
+
+# Edit the Dockerfile by changing the current version to the new obtained
+# version from the Atlassian Bamboo version feed.
+sed --in-place \
+    --expression "s/ENV BAMBOO_VERSION  ${CURRENT_VERSION}/ENV BAMBOO_VERSION  ${VERSION}/g" \
+    Dockerfile
+
+echo "Ready for acceptance testing"
