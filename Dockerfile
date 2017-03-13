@@ -3,7 +3,7 @@ FROM openjdk:8
 # Setup useful environment variables
 ENV BAMBOO_HOME     /var/atlassian/bamboo
 ENV BAMBOO_INSTALL  /opt/atlassian/bamboo
-ENV BAMBOO_VERSION  5.15.2
+ENV BAMBOO_VERSION  5.15.3
 
 # Install Atlassian Bamboo and helper tools and setup initial home
 # directory structure.
