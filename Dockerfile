@@ -10,8 +10,13 @@ ENV BAMBOO_VERSION  6.0.0
 RUN set -x \
     && apt-get update --quiet \
     && apt-get install --quiet --yes --no-install-recommends xmlstarlet \
+    && curl --silent https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash \
+    && apt-get install --quiet --yes --no-install-recommends git-lfs \
+    && git lfs install \
     && apt-get install --quiet --yes --no-install-recommends -t jessie-backports libtcnative-1 \
+    && dpkg --purge apt-transport-https \
     && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
     && mkdir -p               "${BAMBOO_HOME}/lib" \
     && chmod -R 700           "${BAMBOO_HOME}" \
     && chown -R daemon:daemon "${BAMBOO_HOME}" \
