@@ -4,6 +4,7 @@ FROM openjdk:8
 ENV BAMBOO_HOME     /var/atlassian/bamboo
 ENV BAMBOO_INSTALL  /opt/atlassian/bamboo
 ENV BAMBOO_VERSION  6.0.3
+ENV SUPERVISOR_CONF /etc/supervisor/conf.d/supervisord.conf
 
 # Install Atlassian Bamboo and helper tools and setup initial home
 # directory structure.
@@ -14,8 +15,25 @@ RUN set -x \
     && apt-get install --quiet --yes --no-install-recommends git-lfs \
     && git lfs install \
     && apt-get install --quiet --yes --no-install-recommends -t jessie-backports libtcnative-1 \
+    && apt-get install --quiet --yes --no-install-recommends supervisor \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
+    && mkdir -p /var/log/supervisor \
+    && chmod -R 700           /var/log/supervisor \
+    && chown -R daemon:daemon /var/log/supervisor \
+    && mkdir -p /opt/run/supervisor \
+    && chmod -R 700           /opt/run/supervisor \
+    && chown -R daemon:daemon /opt/run/supervisor \
+    && echo "[supervisord]" >> ${SUPERVISOR_CONF} \
+    && echo "nodaemon=true" >> ${SUPERVISOR_CONF} \
+    && echo "pidfile=/opt/run/supervisor/supervisord.pid" >> ${SUPERVISOR_CONF} \
+    && echo "[program:bamboo]" >> ${SUPERVISOR_CONF} \
+    && echo "command=/opt/atlassian/bamboo/bin/start-bamboo.sh -fg" >> ${SUPERVISOR_CONF} \
+    && echo "directory=/var/atlassian/bamboo" >> ${SUPERVISOR_CONF} \
+    && echo "user=daemon" >> ${SUPERVISOR_CONF} \
+    && echo "autorestart=true" >> ${SUPERVISOR_CONF} \
+    && chmod -R 700   /etc/supervisor/conf.d/supervisord.conf \
+    && chown -R daemon:daemon /etc/supervisor/conf.d/supervisord.conf \
     && mkdir -p               "${BAMBOO_HOME}/lib" \
     && chmod -R 700           "${BAMBOO_HOME}" \
     && chown -R daemon:daemon "${BAMBOO_HOME}" \
@@ -51,5 +69,5 @@ WORKDIR /var/atlassian/bamboo
 COPY "docker-entrypoint.sh" "/"
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
-# Run Atlassian Bamboo as a foreground process by default.
-CMD ["/opt/atlassian/bamboo/bin/start-bamboo.sh", "-fg"]
+# Run supervisor which starts Atlassian Bamboo as a foreground process by default. It also takes care of orphaned ssh processes.
+CMD ["/usr/bin/supervisord", "--config=/etc/supervisor/conf.d/supervisord.conf"]
