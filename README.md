@@ -35,3 +35,19 @@ If you see out of date documentation, lack of tests, etc., you can help out by e
 - sending a pull request with modifications (remember to read [contributing guide](https://github.com/cptactionhank/docker-atlassian-bamboo/blob/master/CONTRIBUTING.md) before.)
 
 Continuous Integration and Continuous Delivery is made possible with the great services from [GitHub](https://github.com), [Travis CI](https://travis-ci.org/), and [CircleCI](https://circleci.com/) written in [Ruby](https://www.ruby-lang.org/), using [RSpec](http://rspec.info/), [Capybara](https://jnicklas.github.io/capybara/), and [PhantomJS](http://phantomjs.org/) frameworks.
+----
+
+/home/rvaldes/Contenedores/docker-atlassian-bamboo
+
+
+docker run --detach --publish 8085:8085 --name cybersyn-ci -v /home/rvaldes/Contenedores/docker-atlassian-bamboo/data/bamboo/atlassian/bamboo:/var/atlassian/bamboo -v /home/rvaldes/Contenedores/docker-atlassian-bamboo/data/bamboo-install/bamboo:/opt/atlassian/bamboo cybersyn/bamboo
+
+/home/rvaldes/Contenedores/docker-atlassian-bamboo/data/bamboo-install/bamboo
+
+docker run --detach --publish 8085:8085 --name cybersyn-ci 
+
+
+ENV BAMBOO_HOME     /var/atlassian/bamboo
+ENV BAMBOO_INSTALL  /opt/atlassian/bamboo
+
+
