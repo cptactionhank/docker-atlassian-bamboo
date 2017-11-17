@@ -3,7 +3,7 @@ FROM openjdk:8
 # Setup useful environment variables
 ENV BAMBOO_HOME     /var/atlassian/bamboo
 ENV BAMBOO_INSTALL  /opt/atlassian/bamboo
-ENV BAMBOO_VERSION  6.0.3
+ENV BAMBOO_VERSION  6.2.2
 
 # Install Atlassian Bamboo and helper tools and setup initial home
 # directory structure.
@@ -13,7 +13,7 @@ RUN set -x \
     && curl --silent https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash \
     && apt-get install --quiet --yes --no-install-recommends git-lfs \
     && git lfs install \
-    && apt-get install --quiet --yes --no-install-recommends -t jessie-backports libtcnative-1 \
+    && apt-get install --quiet --yes --no-install-recommends libtcnative-1 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir -p               "${BAMBOO_HOME}/lib" \

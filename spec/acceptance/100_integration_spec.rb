@@ -62,7 +62,7 @@ describe 'Atlassian Bamboo behind reverse proxy' do
   include_examples 'a buildable Docker image', '.',
     env: [
       "CATALINA_OPTS=-Xms1024m -Xmx2048m -Djava.security.egd=file:/dev/./urandom -Datlassian.plugins.enable.wait=#{Docker::DSL.timeout}",
-      "X_PROXY_NAME=#{Docker.info['Name']}",
+      "X_PROXY_NAME=localhost",
       'X_PROXY_PORT=1234',
       'X_PROXY_SCHEME=http',
       'X_PATH=/bamboo-path'

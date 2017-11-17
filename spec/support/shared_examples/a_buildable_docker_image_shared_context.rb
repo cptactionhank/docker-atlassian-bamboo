@@ -19,7 +19,6 @@ shared_examples 'a buildable Docker image' do |path, options = {}|
     subject { @container }
 
     it { is_expected.to_not be_nil }
-    it { is_expected.to be_running }
     it { is_expected.to wait_until_output_matches REGEX_STARTUP }
   end
 
