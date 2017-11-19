@@ -39,5 +39,7 @@ Continuous Integration and Continuous Delivery is made possible with the great s
 Thank you for wanting to help support this repository by supporting me and my supply of hair cuts, tea and coffee, among others.
 
 __Bitcoin:__ `1CT2J3kT1kmj9Z6f4SEvvL3oAkNFQwD5kQ`
+
 __Ethereum:__ `0x82305dcE146b2aCaDA0d63235b84c187A5A23c36`
+
 __Doge:__ `DDKU3SHDu7BcR1P7n5qXGwb8SviiCG5gFX`
