@@ -3,11 +3,14 @@ version: 2
 jobs:
    build:
      docker:
-       - image: circleci/ruby:2.4.1
+       - image: circleci/ruby:2.4-browsers
      steps:
        - checkout
        - setup_remote_docker:
-           version: 17.05.0-ce
+           version: 17.10.0-ce-git
+       - run: sudo curl --output /tmp/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
+       - run: sudo chmod ugo+x /tmp/phantomjs
+       - run: sudo ln -sf /tmp/phantomjs /usr/local/bin/phantomjs
        - run: docker version
        - run: docker info
        - run: bundle install
