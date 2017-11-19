@@ -2,7 +2,6 @@ version: 2
 
 jobs:
    build:
-     # machine: true
      docker:
        - image: circleci/ruby:2.4.1
      steps:
@@ -11,5 +10,5 @@ jobs:
            version: 17.05.0-ce
        - run: docker version
        - run: docker info
-       # - run: bundle install
-       # - run: bundle exec rspec
+       - run: bundle install
+       - run: bundle exec rspec
