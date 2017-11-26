@@ -4,10 +4,13 @@
 # Docker image. If the file has been changed the entrypoint script will not
 # perform modifications to the configuration file.
 if [ "$(stat --format "%Y" "${BAMBOO_INSTALL}/conf/server.xml")" -eq "0" ]; then
+  echo "doing something"
   if [ -n "${X_PROXY_NAME}" ]; then
+    echo "setting proxy name"
     xmlstarlet ed --inplace --pf --ps --insert '//Connector[@port="8085"]' --type "attr" --name "proxyName" --value "${X_PROXY_NAME}" "${BAMBOO_INSTALL}/conf/server.xml"
   fi
   if [ -n "${X_PROXY_PORT}" ]; then
+    echo "setting proxyport"
     xmlstarlet ed --inplace --pf --ps --insert '//Connector[@port="8085"]' --type "attr" --name "proxyPort" --value "${X_PROXY_PORT}" "${BAMBOO_INSTALL}/conf/server.xml"
   fi
   if [ -n "${X_PROXY_SCHEME}" ]; then
