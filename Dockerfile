@@ -14,7 +14,7 @@ RUN set -x \
     # && apt-get install --quiet --yes --no-install-recommends libtcnative-1 \
     # && apt-get clean \
     # && rm -rf /var/lib/apt/lists/* \
-    && apk add --no-cache curl xmlstarlet git bash \
+    && apk add --no-cache curl xmlstarlet git openssh bash \
     && mkdir -p               "${BAMBOO_HOME}/lib" \
     && chmod -R 700           "${BAMBOO_HOME}" \
     && chown -R daemon:daemon "${BAMBOO_HOME}" \
