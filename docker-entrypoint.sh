@@ -3,7 +3,7 @@
 # check if the `server.xml` file has been changed since the creation of this
 # Docker image. If the file has been changed the entrypoint script will not
 # perform modifications to the configuration file.
-if [ "$(stat --format "%Y" "${BAMBOO_INSTALL}/conf/server.xml")" -eq "0" ]; then
+if [ "$(stat -c "%Y" "${BAMBOO_INSTALL}/conf/server.xml")" -eq "0" ]; then
   echo "doing something"
   if [ -n "${X_PROXY_NAME}" ]; then
     echo "setting proxy name"
