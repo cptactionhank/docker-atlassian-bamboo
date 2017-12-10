@@ -8,12 +8,6 @@ ENV BAMBOO_VERSION  6.2.3
 # Install Atlassian Bamboo and helper tools and setup initial home
 # directory structure.
 RUN set -x \
-    # && curl --silent https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash \
-    # && apt-get install --quiet --yes --no-install-recommends git-lfs \
-    # && git lfs install \
-    # && apt-get install --quiet --yes --no-install-recommends libtcnative-1 \
-    # && apt-get clean \
-    # && rm -rf /var/lib/apt/lists/* \
     && apk add --no-cache curl xmlstarlet git openssh bash \
     && mkdir -p               "${BAMBOO_HOME}/lib" \
     && chmod -R 700           "${BAMBOO_HOME}" \
