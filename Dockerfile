@@ -10,7 +10,7 @@ ENV BAMBOO_VERSION  6.7.1
 RUN set -x \
     && addgroup -S bamboo \
     && adduser -S -h "${BAMBOO_HOME}" bamboo bamboo \
-    && apk add --no-cache curl xmlstarlet git openssh bash ttf-dejavu libc6-compat \
+    && apk add --no-cache curl xmlstarlet git openssh bash ttf-dejavu libc6-compat tzdata \
     && mkdir -p               "${BAMBOO_HOME}/lib" \
     && chmod -R 700           "${BAMBOO_HOME}" \
     && chown -R bamboo:bamboo "${BAMBOO_HOME}" \
