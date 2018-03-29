@@ -8,7 +8,7 @@ ENV BAMBOO_VERSION  6.4.0
 # Install Atlassian Bamboo and helper tools and setup initial home
 # directory structure.
 RUN set -x \
-    && apk add --no-cache curl xmlstarlet git openssh bash \
+    && apk add --no-cache curl xmlstarlet git openssh bash ttf-dejavu libc6-compat \
     && mkdir -p               "${BAMBOO_HOME}/lib" \
     && chmod -R 700           "${BAMBOO_HOME}" \
     && chown -R daemon:daemon "${BAMBOO_HOME}" \
