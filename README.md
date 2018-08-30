@@ -19,6 +19,10 @@ To quickly get started running a Bamboo instance, use the following command:
 ```bash
 docker run --detach --publish 8085:8085 cptactionhank/atlassian-bamboo:latest
 ```
+or, if you want to use Docker inside image:
+```bash
+docker run --detach --publish 8085:8085 -v /var/run/docker.sock:/var/run/docker.sock cptactionhank/atlassian-bamboo:latest
+```
 
 Then simply navigate to [`http://localhost:8085`](http://localhost:8085) and finish the installation.
 

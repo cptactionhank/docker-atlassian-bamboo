@@ -22,13 +22,10 @@ RUN set -x \
         --delete              "Server/Service/Engine/Host/@xmlValidation" \
         --delete              "Server/Service/Engine/Host/@xmlNamespaceAware" \
                               "${BAMBOO_INSTALL}/conf/server.xml" \
-    && touch -d "@0"          "${BAMBOO_INSTALL}/conf/server.xml"
-
-
-# Use the default unprivileged account. This could be considered bad practice
-# on systems where multiple processes end up being executed by 'daemon' but
-# here we only ever run one process anyway.
-USER daemon:daemon
+    && touch -d "@0"          "${BAMBOO_INSTALL}/conf/server.xml" \
+    && apk add docker \
+    && apk add py-pip \
+    && pip install docker-compose
 
 # Expose default HTTP and SSH ports.
 EXPOSE 8085 54663
