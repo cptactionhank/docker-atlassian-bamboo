@@ -29,6 +29,7 @@ RUN set -x \
 # on systems where multiple processes end up being executed by 'daemon' but
 # here we only ever run one process anyway.
 USER daemon:daemon
+ENV HOME /var/atlassian/bamboo
 
 # Expose default HTTP and SSH ports.
 EXPOSE 8085 54663
