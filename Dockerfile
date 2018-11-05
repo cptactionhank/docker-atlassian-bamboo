@@ -1,6 +1,7 @@
 FROM openjdk:8-alpine
 
 # Setup useful environment variables
+ENV HOME            /var/atlassian/bamboo
 ENV BAMBOO_HOME     /var/atlassian/bamboo
 ENV BAMBOO_INSTALL  /opt/atlassian/bamboo
 ENV BAMBOO_VERSION  6.7.1
@@ -31,7 +32,6 @@ RUN set -x \
 # on systems where multiple processes end up being executed by 'daemon' but
 # here we only ever run one process anyway.
 USER bamboo:bamboo
-ENV HOME /var/atlassian/bamboo
 
 # Expose default HTTP and SSH ports.
 EXPOSE 8085 54663
