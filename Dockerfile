@@ -25,7 +25,8 @@ RUN set -x \
     && touch -d "@0"          "${BAMBOO_INSTALL}/conf/server.xml" \
     && apk add docker \
     && apk add py-pip \
-    && pip install docker-compose
+    && pip install docker-compose \
+    && apk add grep
 
 # Expose default HTTP and SSH ports.
 EXPOSE 8085 54663
