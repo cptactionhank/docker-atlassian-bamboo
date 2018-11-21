@@ -1,9 +1,10 @@
 FROM openjdk:8-alpine
 
 # Setup useful environment variables
-ENV BAMBOO_HOME     /var/atlassian/bamboo
-ENV BAMBOO_INSTALL  /opt/atlassian/bamboo
-ENV BAMBOO_VERSION  6.7.2
+ENV BAMBOO_HOME              /var/atlassian/bamboo
+ENV BAMBOO_INSTALL           /opt/atlassian/bamboo
+ENV BAMBOO_VERSION           6.7.2
+ENV MYSQL_CONNECTOR_VERSION  5.1.47
 
 # Install Atlassian Bamboo and helper tools and setup initial home
 # directory structure.
@@ -15,8 +16,8 @@ RUN set -x \
     && chmod -R 700           "${BAMBOO_HOME}" \
     && chown -R bamboo:bamboo "${BAMBOO_HOME}" \
     && mkdir -p               "${BAMBOO_INSTALL}" \
-    && curl -Ls               "https://www.atlassian.com/software/bamboo/downloads/binary/atlassian-bamboo-${BAMBOO_VERSION}.tar.gz" | tar -zx --directory  "${BAMBOO_INSTALL}" --strip-components=1 --no-same-owner \
-    && curl -Ls                "https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.40.tar.gz" | tar -xz --directory "${BAMBOO_INSTALL}/lib" --strip-components=1 --no-same-owner "mysql-connector-java-5.1.40/mysql-connector-java-5.1.40-bin.jar" \
+    && curl -Ls               "https://www.atlassian.com/software/bamboo/downloads/binary/atlassian-bamboo-${BAMBOO_VERSION}.tar.gz" | tar -zx --directory "${BAMBOO_INSTALL}" --strip-components=1 --no-same-owner \
+    && curl -Ls               "https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.tar.gz" | tar -xz --directory "${BAMBOO_INSTALL}/lib" --strip-components=1 --no-same-owner "mysql-connector-java-${MYSQL_CONNECTOR_VERSION}/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}-bin.jar" \
     && chmod -R 700           "${BAMBOO_INSTALL}" \
     && chown -R bamboo:bamboo "${BAMBOO_INSTALL}" \
     && sed --in-place         's/^# umask 0027$/umask 0027/g' "${BAMBOO_INSTALL}/bin/setenv.sh" \
