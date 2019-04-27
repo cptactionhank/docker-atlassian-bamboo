@@ -3,7 +3,7 @@ FROM openjdk:8-alpine
 # Setup useful environment variables
 ENV BAMBOO_HOME              /var/atlassian/bamboo
 ENV BAMBOO_INSTALL           /opt/atlassian/bamboo
-ENV BAMBOO_VERSION           6.7.2
+ENV BAMBOO_VERSION           6.8.1
 ENV MYSQL_CONNECTOR_VERSION  5.1.47
 
 # Install Atlassian Bamboo and helper tools and setup initial home
